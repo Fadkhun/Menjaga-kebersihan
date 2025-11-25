@@ -1,310 +1,419 @@
-import React, { useState } from 'react';
-import { BookOpen, Heart, Leaf, Star, Menu, X, ChevronRight, Droplet, Sun } from 'lucide-react';
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KAROMAIZ - Puding Kurma & Madu</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <!-- Custom Fonts (Optional for better aesthetics) -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+        /* Arabic Font */
+        .font-arabic {
+            font-family: 'Traditional Arabic', 'Amiri', serif;
+        }
+        /* Custom Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translate3d(0, 20px, 0);
+            }
+            to {
+                opacity: 1;
+                transform: translate3d(0, 0, 0);
+            }
+        }
+        .animate-fade-in-up {
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+    </style>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        amber: {
+                            50: '#fffbeb',
+                            100: '#fef3c7',
+                            200: '#fde68a',
+                            400: '#fbbf24',
+                            500: '#f59e0b',
+                            600: '#d97706',
+                            700: '#b45309',
+                            800: '#92400e',
+                            900: '#78350f',
+                        },
+                        stone: {
+                            50: '#fafaf9',
+                            100: '#f5f5f4',
+                            600: '#57534e',
+                            800: '#292524',
+                            900: '#1c1917',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="min-h-screen bg-stone-50 text-stone-800">
 
-const App = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-
-  // Data Dalil Al-Qur'an
-  const verses = [
-    {
-      surah: "Q.S. Al-Baqarah: 168",
-      arabic: "يٰٓاَيُّهَا النَّاسُ كُلُوْا مِمَّا فِى الْاَرْضِ حَلٰلًا طَيِّبًا ۖوَّلَا تَتَّبِعُوْا خُطُوٰتِ الشَّيْطٰنِۗ اِنَّهٗ لَكُمْ عَدُوٌّ مُّبِيْنٌ",
-      // Note: User prompt implied verse 168 text but quoted slightly differently, used standard text for 168 based on context
-      meaning: "Wahai manusia, makanlah sebagian (makanan) di bumi yang halal lagi baik dan janganlah mengikuti langkah-langkah setan. Sesungguhnya ia bagimu merupakan musuh yang nyata."
-    },
-    {
-      surah: "Q.S. Maryam: 25",
-      arabic: "وَهُزِّىۡۤ اِلَيۡكِ بِجِذۡعِ النَّخۡلَةِ تُسٰقِطۡ عَلَيۡكِ رُطَبًا جَنِيًّا",
-      meaning: "Dan goyanglah pangkal pohon kurma itu ke arahmu, niscaya (pohon) itu akan menggugurkan buah kurma yang masak kepadamu."
-    },
-    {
-      surah: "Q.S. Maryam: 26",
-      arabic: "فَكُلِىۡ وَاشۡرَبِىۡ وَقَرِّىۡ عَيۡنًا​ ۚ ...",
-      meaning: "Makan, minum, dan bersukacitalah engkau..."
-    },
-    {
-      surah: "Q.S. An-Nahl: 69",
-      arabic: "ثُمَّ كُلِيْ مِنْ كُلِّ الثَّمَرٰتِ فَاسْلُكِيْ سُبُلَ رَبِّكِ ذُلُلًاۗ يَخْرُجُ مِنْ بُطُوْنِهَا شَرَابٌ مُّخْتَلِفٌ اَلْوَانُهٗۖ فِيْهِ شِفَاۤءٌ لِّلنَّاسِۗ ...",
-      meaning: "Kemudian, makanlah (wahai lebah) dari segala (macam) buah-buahan... Dari perutnya itu keluar minuman (madu) yang beraneka warnanya. Di dalamnya terdapat obat bagi manusia..."
-    }
-  ];
-
-  return (
-    <div className="min-h-screen bg-stone-50 text-stone-800 font-sans">
-      
-      {/* Navigation */}
-      <nav className="fixed w-full z-50 bg-white/90 backdrop-blur-md shadow-sm border-b border-amber-100">
-        <div className="container mx-auto px-4 md:px-8 py-4 flex justify-between items-center">
-          <div className="flex items-center gap-2">
-            <div className="w-10 h-10 bg-amber-600 rounded-full flex items-center justify-center text-white font-bold text-xl">
-              K
-            </div>
-            <span className="text-2xl font-bold text-amber-900 tracking-tight">KAROMAIZ</span>
-          </div>
-
-          {/* Desktop Menu */}
-          <div className="hidden md:flex gap-8 font-medium text-stone-600">
-            <a href="#home" className="hover:text-amber-600 transition">Beranda</a>
-            <a href="#about" className="hover:text-amber-600 transition">Tentang</a>
-            <a href="#dalil" className="hover:text-amber-600 transition">Landasan Qur'ani</a>
-            <a href="#benefits" className="hover:text-amber-600 transition">Manfaat</a>
-          </div>
-
-          <a href="#contact" className="hidden md:block bg-amber-600 hover:bg-amber-700 text-white px-6 py-2 rounded-full font-medium transition shadow-lg shadow-amber-200">
-            Pesan Sekarang
-          </a>
-
-          {/* Mobile Menu Button */}
-          <button className="md:hidden text-stone-600" onClick={() => setIsMenuOpen(!isMenuOpen)}>
-            {isMenuOpen ? <X size={28} /> : <Menu size={28} />}
-          </button>
-        </div>
-
-        {/* Mobile Dropdown */}
-        {isMenuOpen && (
-          <div className="md:hidden bg-white border-t border-stone-100 absolute w-full px-4 py-4 flex flex-col gap-4 shadow-lg">
-            <a href="#home" onClick={() => setIsMenuOpen(false)} className="text-stone-600 font-medium">Beranda</a>
-            <a href="#about" onClick={() => setIsMenuOpen(false)} className="text-stone-600 font-medium">Tentang</a>
-            <a href="#dalil" onClick={() => setIsMenuOpen(false)} className="text-stone-600 font-medium">Landasan Qur'ani</a>
-            <a href="#benefits" onClick={() => setIsMenuOpen(false)} className="text-stone-600 font-medium">Manfaat</a>
-            <a href="#contact" onClick={() => setIsMenuOpen(false)} className="bg-amber-600 text-white px-4 py-2 rounded text-center">Pesan Sekarang</a>
-          </div>
-        )}
-      </nav>
-
-      {/* Hero Section */}
-      <section id="home" className="relative pt-32 pb-20 md:pt-48 md:pb-32 overflow-hidden">
-        {/* Background Patterns */}
-        <div className="absolute top-0 right-0 w-1/3 h-full bg-amber-100/50 -skew-x-12 transform translate-x-20 z-0"></div>
-        <div className="absolute bottom-0 left-0 w-64 h-64 bg-amber-50 rounded-full blur-3xl z-0"></div>
-
-        <div className="container mx-auto px-4 md:px-8 relative z-10">
-          <div className="max-w-4xl mx-auto text-center">
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-amber-50 border border-amber-200 rounded-full text-amber-800 text-sm font-semibold mb-6 animate-fade-in-up">
-              <Star size={16} className="fill-amber-500 text-amber-500" />
-              Halalan Tayyiban & Nutraceutical
-            </div>
-            <h1 className="text-5xl md:text-7xl font-bold text-stone-900 mb-6 leading-tight">
-              Kelezatan Alami, <br/>
-              <span className="text-amber-600">Penyembuhan Rabbani</span>
-            </h1>
-            <p className="text-lg md:text-xl text-stone-600 mb-10 max-w-2xl mx-auto leading-relaxed">
-              Pengembangan pangan fungsional berbasis puding ekstrak Kurma (<i>Phoenix dactylifera</i>) dan Madu sebagai alternatif penyembuhan.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <a href="#about" className="px-8 py-4 bg-amber-600 text-white rounded-full font-bold hover:bg-amber-700 transition shadow-xl hover:shadow-2xl hover:-translate-y-1 flex items-center justify-center gap-2">
-                Pelajari Lebih Lanjut <ChevronRight size={20} />
-              </a>
-              <a href="#dalil" className="px-8 py-4 bg-white text-stone-700 border border-stone-200 rounded-full font-bold hover:bg-stone-50 transition flex items-center justify-center gap-2">
-                <BookOpen size={20} /> Lihat Dalil
-              </a>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* About Section */}
-      <section id="about" className="py-20 bg-white">
-        <div className="container mx-auto px-4 md:px-8">
-          <div className="grid md:grid-cols-2 gap-12 items-center">
-            <div className="relative">
-              <div className="aspect-square rounded-3xl bg-amber-100 overflow-hidden relative shadow-2xl">
-                 {/* Placeholder for Product Image */}
-                 <img src="https://images.unsplash.com/photo-1598514962262-23b03043831b?q=80&w=2070&auto=format&fit=crop" alt="Puding Kurma Madu" className="w-full h-full object-cover" />
-                 <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent flex items-end p-8">
-                   <div className="text-white">
-                     <h3 className="text-2xl font-bold">KAROMAIZ</h3>
-                     <p className="opacity-90">Healthy Date & Honey Pudding</p>
-                   </div>
-                 </div>
-              </div>
-              <div className="absolute -bottom-6 -right-6 bg-white p-6 rounded-2xl shadow-xl border border-stone-100 max-w-xs hidden md:block">
-                <p className="text-amber-600 font-bold text-lg mb-1">100% Alami</p>
-                <p className="text-stone-500 text-sm">Tanpa pengawet buatan, diproses secara higienis sesuai syariat.</p>
-              </div>
-            </div>
-            
-            <div>
-              <h2 className="text-3xl md:text-4xl font-bold text-stone-900 mb-6">Apa itu KAROMAIZ?</h2>
-              <p className="text-stone-600 text-lg leading-relaxed mb-6">
-                <strong className="text-amber-800">KAROMAIZ</strong> adalah inovasi pangan fungsional berbentuk puding yang menggabungkan ekstrak Kurma (<i>Phoenix dactylifera</i>) dan Madu murni.
-              </p>
-              <p className="text-stone-600 leading-relaxed mb-8">
-                Produk ini diformulasikan sebagai <strong>Nutraceutical</strong>—makanan yang tidak hanya mengenyangkan tetapi juga memberikan manfaat medis, termasuk pencegahan penyakit dan penyembuhan, yang selaras dengan prinsip <strong>Halalan Tayyiban</strong>.
-              </p>
-              
-              <div className="grid grid-cols-2 gap-4">
-                <div className="p-4 bg-stone-50 rounded-xl border border-stone-100">
-                  <Leaf className="text-green-600 mb-2" size={32} />
-                  <h4 className="font-bold text-stone-800">Bahan Alami</h4>
-                  <p className="text-sm text-stone-500">Kurma & Madu Pilihan</p>
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 bg-white/90 backdrop-blur-md shadow-sm border-b border-amber-100">
+        <div class="container mx-auto px-4 md:px-8 py-4 flex justify-between items-center">
+            <div class="flex items-center gap-2">
+                <div class="w-10 h-10 bg-amber-600 rounded-full flex items-center justify-center text-white font-bold text-xl">
+                    K
                 </div>
-                <div className="p-4 bg-stone-50 rounded-xl border border-stone-100">
-                  <Heart className="text-red-500 mb-2" size={32} />
-                  <h4 className="font-bold text-stone-800">Kaya Manfaat</h4>
-                  <p className="text-sm text-stone-500">Sumber Energi & Obat</p>
-                </div>
-              </div>
+                <span class="text-2xl font-bold text-amber-900 tracking-tight">KAROMAIZ</span>
             </div>
-          </div>
-        </div>
-      </section>
 
-      {/* Quranic Foundation (Dalil) */}
-      <section id="dalil" className="py-20 bg-stone-900 text-stone-100 relative overflow-hidden">
-        {/* Decorative Elements */}
-        <div className="absolute top-0 left-0 w-full h-full opacity-10 pointer-events-none">
-            <svg viewBox="0 0 100 100" className="w-full h-full text-amber-500 fill-current">
+            <!-- Desktop Menu -->
+            <div class="hidden md:flex gap-8 font-medium text-stone-600">
+                <a href="#home" class="hover:text-amber-600 transition">Beranda</a>
+                <a href="#about" class="hover:text-amber-600 transition">Tentang</a>
+                <a href="#dalil" class="hover:text-amber-600 transition">Landasan Qur'ani</a>
+                <a href="#benefits" class="hover:text-amber-600 transition">Manfaat</a>
+            </div>
+
+            <a href="#contact" class="hidden md:block bg-amber-600 hover:bg-amber-700 text-white px-6 py-2 rounded-full font-medium transition shadow-lg shadow-amber-200">
+                Pesan Sekarang
+            </a>
+
+            <!-- Mobile Menu Button -->
+            <button id="menu-btn" class="md:hidden text-stone-600 focus:outline-none">
+                <i data-lucide="menu" id="menu-icon" class="w-7 h-7"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Dropdown -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-stone-100 absolute w-full px-4 py-4 flex flex-col gap-4 shadow-lg">
+            <a href="#home" class="mobile-link text-stone-600 font-medium">Beranda</a>
+            <a href="#about" class="mobile-link text-stone-600 font-medium">Tentang</a>
+            <a href="#dalil" class="mobile-link text-stone-600 font-medium">Landasan Qur'ani</a>
+            <a href="#benefits" class="mobile-link text-stone-600 font-medium">Manfaat</a>
+            <a href="#contact" class="mobile-link bg-amber-600 text-white px-4 py-2 rounded text-center">Pesan Sekarang</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="relative pt-32 pb-20 md:pt-48 md:pb-32 overflow-hidden">
+        <!-- Background Patterns -->
+        <div class="absolute top-0 right-0 w-1/3 h-full bg-amber-100/50 -skew-x-12 transform translate-x-20 z-0"></div>
+        <div class="absolute bottom-0 left-0 w-64 h-64 bg-amber-50 rounded-full blur-3xl z-0"></div>
+
+        <div class="container mx-auto px-4 md:px-8 relative z-10">
+            <div class="max-w-4xl mx-auto text-center">
+                <div class="inline-flex items-center gap-2 px-4 py-2 bg-amber-50 border border-amber-200 rounded-full text-amber-800 text-sm font-semibold mb-6 animate-fade-in-up">
+                    <i data-lucide="star" class="w-4 h-4 fill-amber-500 text-amber-500"></i>
+                    Halalan Tayyiban & Nutraceutical
+                </div>
+                <h1 class="text-5xl md:text-7xl font-bold text-stone-900 mb-6 leading-tight">
+                    Kelezatan Alami, <br/>
+                    <span class="text-amber-600">Penyembuhan Rabbani</span>
+                </h1>
+                <p class="text-lg md:text-xl text-stone-600 mb-10 max-w-2xl mx-auto leading-relaxed">
+                    Pengembangan pangan fungsional berbasis puding ekstrak Kurma (<i>Phoenix dactylifera</i>) dan Madu sebagai alternatif penyembuhan.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    <a href="#about" class="px-8 py-4 bg-amber-600 text-white rounded-full font-bold hover:bg-amber-700 transition shadow-xl hover:shadow-2xl hover:-translate-y-1 flex items-center justify-center gap-2">
+                        Pelajari Lebih Lanjut <i data-lucide="chevron-right" class="w-5 h-5"></i>
+                    </a>
+                    <a href="#dalil" class="px-8 py-4 bg-white text-stone-700 border border-stone-200 rounded-full font-bold hover:bg-stone-50 transition flex items-center justify-center gap-2">
+                        <i data-lucide="book-open" class="w-5 h-5"></i> Lihat Dalil
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 bg-white">
+        <div class="container mx-auto px-4 md:px-8">
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div class="relative">
+                    <div class="aspect-square rounded-3xl bg-amber-100 overflow-hidden relative shadow-2xl">
+                        <!-- Placeholder for Product Image -->
+                        <img src="https://images.unsplash.com/photo-1598514962262-23b03043831b?q=80&w=2070&auto=format&fit=crop" alt="Puding Kurma Madu" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/600x600?text=Puding+Kurma'">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent flex items-end p-8">
+                            <div class="text-white">
+                                <h3 class="text-2xl font-bold">KAROMAIZ</h3>
+                                <p class="opacity-90">Healthy Date & Honey Pudding</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="absolute -bottom-6 -right-6 bg-white p-6 rounded-2xl shadow-xl border border-stone-100 max-w-xs hidden md:block">
+                        <p class="text-amber-600 font-bold text-lg mb-1">100% Alami</p>
+                        <p class="text-stone-500 text-sm">Tanpa pengawet buatan, diproses secara higienis sesuai syariat.</p>
+                    </div>
+                </div>
+                
+                <div>
+                    <h2 class="text-3xl md:text-4xl font-bold text-stone-900 mb-6">Apa itu KAROMAIZ?</h2>
+                    <p class="text-stone-600 text-lg leading-relaxed mb-6">
+                        <strong class="text-amber-800">KAROMAIZ</strong> adalah inovasi pangan fungsional berbentuk puding yang menggabungkan ekstrak Kurma (<i>Phoenix dactylifera</i>) dan Madu murni.
+                    </p>
+                    <p class="text-stone-600 leading-relaxed mb-8">
+                        Produk ini diformulasikan sebagai <strong>Nutraceutical</strong>—makanan yang tidak hanya mengenyangkan tetapi juga memberikan manfaat medis, termasuk pencegahan penyakit dan penyembuhan, yang selaras dengan prinsip <strong>Halalan Tayyiban</strong>.
+                    </p>
+                    
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="p-4 bg-stone-50 rounded-xl border border-stone-100">
+                            <i data-lucide="leaf" class="w-8 h-8 text-green-600 mb-2"></i>
+                            <h4 class="font-bold text-stone-800">Bahan Alami</h4>
+                            <p class="text-sm text-stone-500">Kurma & Madu Pilihan</p>
+                        </div>
+                        <div class="p-4 bg-stone-50 rounded-xl border border-stone-100">
+                            <i data-lucide="heart" class="w-8 h-8 text-red-500 mb-2"></i>
+                            <h4 class="font-bold text-stone-800">Kaya Manfaat</h4>
+                            <p class="text-sm text-stone-500">Sumber Energi & Obat</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quranic Foundation (Dalil) -->
+    <section id="dalil" class="py-20 bg-stone-900 text-stone-100 relative overflow-hidden">
+        <!-- Decorative Elements -->
+        <div class="absolute top-0 left-0 w-full h-full opacity-10 pointer-events-none">
+            <svg viewBox="0 0 100 100" class="w-full h-full text-amber-500 fill-current">
                 <path d="M0 0 H100 V100 H0 Z" fill="none"/>
-                {/* Abstract Islamic Pattern Pattern mockup */}
-                <circle cx="50" cy="50" r="40" stroke="currentColor" strokeWidth="0.5" fill="none" />
-                <rect x="20" y="20" width="60" height="60" transform="rotate(45 50 50)" stroke="currentColor" strokeWidth="0.5" fill="none" />
+                <!-- Abstract Islamic Pattern Mockup -->
+                <circle cx="50" cy="50" r="40" stroke="currentColor" stroke-width="0.5" fill="none" />
+                <rect x="20" y="20" width="60" height="60" transform="rotate(45 50 50)" stroke="currentColor" stroke-width="0.5" fill="none" />
             </svg>
         </div>
 
-        <div className="container mx-auto px-4 md:px-8 relative z-10">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-5xl font-bold text-amber-400 mb-4">Landasan Qur'ani</h2>
-            <p className="text-stone-400 max-w-2xl mx-auto">
-              Inspirasi produk kami bersumber langsung dari ayat-ayat suci Al-Qur'an tentang makanan yang halal, baik, dan menyembuhkan.
-            </p>
-          </div>
+        <div class="container mx-auto px-4 md:px-8 relative z-10">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-5xl font-bold text-amber-400 mb-4">Landasan Qur'ani</h2>
+                <p class="text-stone-400 max-w-2xl mx-auto">
+                    Inspirasi produk kami bersumber langsung dari ayat-ayat suci Al-Qur'an tentang makanan yang halal, baik, dan menyembuhkan.
+                </p>
+            </div>
 
-          <div className="grid md:grid-cols-2 gap-8">
-            {verses.map((verse, index) => (
-              <div key={index} className="bg-stone-800/50 backdrop-blur-sm border border-stone-700 p-8 rounded-2xl hover:border-amber-500/50 transition duration-300">
-                <div className="flex items-center justify-between mb-6 border-b border-stone-700 pb-4">
-                  <span className="text-amber-400 font-bold tracking-wider">{verse.surah}</span>
-                  <BookOpen size={20} className="text-stone-500" />
+            <div class="grid md:grid-cols-2 gap-8" id="verses-container">
+                <!-- Verse 1 -->
+                <div class="bg-stone-800/50 backdrop-blur-sm border border-stone-700 p-8 rounded-2xl hover:border-amber-500/50 transition duration-300">
+                    <div class="flex items-center justify-between mb-6 border-b border-stone-700 pb-4">
+                        <span class="text-amber-400 font-bold tracking-wider">Q.S. Al-Baqarah: 168</span>
+                        <i data-lucide="book-open" class="w-5 h-5 text-stone-500"></i>
+                    </div>
+                    <p class="text-2xl md:text-3xl text-right mb-6 leading-loose font-arabic text-white" dir="rtl">
+                        يٰٓاَيُّهَا النَّاسُ كُلُوْا مِمَّا فِى الْاَرْضِ حَلٰلًا طَيِّبًا ۖوَّلَا تَتَّبِعُوْا خُطُوٰتِ الشَّيْطٰنِۗ اِنَّهٗ لَكُمْ عَدُوٌّ مُّبِيْنٌ
+                    </p>
+                    <p class="text-stone-300 italic text-sm md:text-base leading-relaxed">
+                        "Wahai manusia, makanlah sebagian (makanan) di bumi yang halal lagi baik dan janganlah mengikuti langkah-langkah setan. Sesungguhnya ia bagimu merupakan musuh yang nyata."
+                    </p>
                 </div>
-                <p className="text-2xl md:text-3xl text-right mb-6 leading-loose font-serif text-white dir-rtl" style={{ fontFamily: "'Traditional Arabic', serif" }}>
-                  {verse.arabic}
-                </p>
-                <p className="text-stone-300 italic text-sm md:text-base leading-relaxed">
-                  "{verse.meaning}"
-                </p>
-              </div>
-            ))}
-          </div>
+
+                <!-- Verse 2 -->
+                <div class="bg-stone-800/50 backdrop-blur-sm border border-stone-700 p-8 rounded-2xl hover:border-amber-500/50 transition duration-300">
+                    <div class="flex items-center justify-between mb-6 border-b border-stone-700 pb-4">
+                        <span class="text-amber-400 font-bold tracking-wider">Q.S. Maryam: 25</span>
+                        <i data-lucide="book-open" class="w-5 h-5 text-stone-500"></i>
+                    </div>
+                    <p class="text-2xl md:text-3xl text-right mb-6 leading-loose font-arabic text-white" dir="rtl">
+                        وَهُزِّىۡۤ اِلَيۡكِ بِجِذۡعِ النَّخۡلَةِ تُسٰقِطۡ عَلَيۡكِ رُطَبًا جَنِيًّا
+                    </p>
+                    <p class="text-stone-300 italic text-sm md:text-base leading-relaxed">
+                        "Dan goyanglah pangkal pohon kurma itu ke arahmu, niscaya (pohon) itu akan menggugurkan buah kurma yang masak kepadamu."
+                    </p>
+                </div>
+
+                <!-- Verse 3 -->
+                <div class="bg-stone-800/50 backdrop-blur-sm border border-stone-700 p-8 rounded-2xl hover:border-amber-500/50 transition duration-300">
+                    <div class="flex items-center justify-between mb-6 border-b border-stone-700 pb-4">
+                        <span class="text-amber-400 font-bold tracking-wider">Q.S. Maryam: 26</span>
+                        <i data-lucide="book-open" class="w-5 h-5 text-stone-500"></i>
+                    </div>
+                    <p class="text-2xl md:text-3xl text-right mb-6 leading-loose font-arabic text-white" dir="rtl">
+                        فَكُلِىۡ وَاشۡرَبِىۡ وَقَرِّىۡ عَيۡنًا​ ۚ ...
+                    </p>
+                    <p class="text-stone-300 italic text-sm md:text-base leading-relaxed">
+                        "Makan, minum, dan bersukacitalah engkau..."
+                    </p>
+                </div>
+
+                <!-- Verse 4 -->
+                <div class="bg-stone-800/50 backdrop-blur-sm border border-stone-700 p-8 rounded-2xl hover:border-amber-500/50 transition duration-300">
+                    <div class="flex items-center justify-between mb-6 border-b border-stone-700 pb-4">
+                        <span class="text-amber-400 font-bold tracking-wider">Q.S. An-Nahl: 69</span>
+                        <i data-lucide="book-open" class="w-5 h-5 text-stone-500"></i>
+                    </div>
+                    <p class="text-2xl md:text-3xl text-right mb-6 leading-loose font-arabic text-white" dir="rtl">
+                        ثُمَّ كُلِيْ مِنْ كُلِّ الثَّمَرٰتِ فَاسْلُكِيْ سُبُلَ رَبِّكِ ذُلُلًاۗ يَخْرُجُ مِنْ بُطُوْنِهَا شَرَابٌ مُّخْتَلِفٌ اَلْوَانُهٗۖ فِيْهِ شِفَاۤءٌ لِّلنَّاسِۗ ...
+                    </p>
+                    <p class="text-stone-300 italic text-sm md:text-base leading-relaxed">
+                        "Kemudian, makanlah (wahai lebah) dari segala (macam) buah-buahan... Dari perutnya itu keluar minuman (madu) yang beraneka warnanya. Di dalamnya terdapat obat bagi manusia..."
+                    </p>
+                </div>
+            </div>
         </div>
-      </section>
+    </section>
 
-      {/* Ingredients & Benefits */}
-      <section id="benefits" className="py-20 bg-amber-50/50">
-        <div className="container mx-auto px-4 md:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-stone-900 mb-4">Kandungan Utama</h2>
-            <p className="text-stone-600">Perpaduan dua superfood yang disebutkan dalam Al-Qur'an</p>
-          </div>
+    <!-- Ingredients & Benefits -->
+    <section id="benefits" class="py-20 bg-amber-50/50">
+        <div class="container mx-auto px-4 md:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-stone-900 mb-4">Kandungan Utama</h2>
+                <p class="text-stone-600">Perpaduan dua superfood yang disebutkan dalam Al-Qur'an</p>
+            </div>
 
-          <div className="grid md:grid-cols-2 gap-12">
-            {/* Kurma */}
-            <div className="bg-white p-8 rounded-3xl shadow-sm border border-stone-100 flex flex-col md:flex-row gap-6 items-center hover:shadow-xl transition">
-              <div className="w-32 h-32 bg-amber-100 rounded-full flex items-center justify-center flex-shrink-0">
-                 {/* Icon for Date Palm */}
-                 <Sun size={48} className="text-amber-700" />
-              </div>
-              <div>
-                <h3 className="text-2xl font-bold text-stone-800 mb-2">Kurma (<i>Phoenix dactylifera</i>)</h3>
-                <p className="text-stone-600 text-sm mb-4">
-                  Disebutkan dalam surat Maryam. Kaya akan serat, kalium, dan antioksidan.
+            <div class="grid md:grid-cols-2 gap-12">
+                <!-- Kurma -->
+                <div class="bg-white p-8 rounded-3xl shadow-sm border border-stone-100 flex flex-col md:flex-row gap-6 items-center hover:shadow-xl transition">
+                    <div class="w-32 h-32 bg-amber-100 rounded-full flex items-center justify-center flex-shrink-0">
+                        <i data-lucide="sun" class="w-12 h-12 text-amber-700"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-2xl font-bold text-stone-800 mb-2">Kurma (<i>Phoenix dactylifera</i>)</h3>
+                        <p class="text-stone-600 text-sm mb-4">
+                            Disebutkan dalam surat Maryam. Kaya akan serat, kalium, dan antioksidan.
+                        </p>
+                        <ul class="space-y-2">
+                            <li class="flex items-center gap-2 text-stone-700 text-sm">
+                                <div class="w-2 h-2 bg-amber-500 rounded-full"></div> Sumber energi instan (glukosa alami)
+                            </li>
+                            <li class="flex items-center gap-2 text-stone-700 text-sm">
+                                <div class="w-2 h-2 bg-amber-500 rounded-full"></div> Membantu pencernaan
+                            </li>
+                            <li class="flex items-center gap-2 text-stone-700 text-sm">
+                                <div class="w-2 h-2 bg-amber-500 rounded-full"></div> Sunnah Rasulullah SAW
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Madu -->
+                <div class="bg-white p-8 rounded-3xl shadow-sm border border-stone-100 flex flex-col md:flex-row gap-6 items-center hover:shadow-xl transition">
+                    <div class="w-32 h-32 bg-yellow-100 rounded-full flex items-center justify-center flex-shrink-0">
+                        <i data-lucide="droplet" class="w-12 h-12 text-yellow-600"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-2xl font-bold text-stone-800 mb-2">Madu Murni</h3>
+                        <p class="text-stone-600 text-sm mb-4">
+                            "Di dalamnya terdapat obat bagi manusia" (An-Nahl: 69).
+                        </p>
+                        <ul class="space-y-2">
+                            <li class="flex items-center gap-2 text-stone-700 text-sm">
+                                <div class="w-2 h-2 bg-yellow-500 rounded-full"></div> Sifat antibakteri & anti-inflamasi
+                            </li>
+                            <li class="flex items-center gap-2 text-stone-700 text-sm">
+                                <div class="w-2 h-2 bg-yellow-500 rounded-full"></div> Meningkatkan sistem imun
+                            </li>
+                            <li class="flex items-center gap-2 text-stone-700 text-sm">
+                                <div class="w-2 h-2 bg-yellow-500 rounded-full"></div> Pemanis alami yang sehat
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action -->
+    <section id="contact" class="py-20">
+        <div class="container mx-auto px-4 md:px-8">
+            <div class="bg-amber-600 rounded-3xl p-10 md:p-16 text-center text-white shadow-2xl relative overflow-hidden">
+                <div class="absolute top-0 right-0 w-64 h-64 bg-white opacity-10 rounded-full -translate-y-1/2 translate-x-1/2"></div>
+                
+                <h2 class="text-3xl md:text-5xl font-bold mb-6 relative z-10">Rasakan Manfaat KAROMAIZ</h2>
+                <p class="text-amber-100 text-lg mb-10 max-w-2xl mx-auto relative z-10">
+                    Puding sehat, halal, dan thayyib untuk keluarga Anda. Jadikan ini bagian dari ikhtiar sehat harian Anda.
                 </p>
-                <ul className="space-y-2">
-                  <li className="flex items-center gap-2 text-stone-700 text-sm">
-                    <div className="w-2 h-2 bg-amber-500 rounded-full"></div> Sumber energi instan (glukosa alami)
-                  </li>
-                  <li className="flex items-center gap-2 text-stone-700 text-sm">
-                    <div className="w-2 h-2 bg-amber-500 rounded-full"></div> Membantu pencernaan
-                  </li>
-                  <li className="flex items-center gap-2 text-stone-700 text-sm">
-                    <div className="w-2 h-2 bg-amber-500 rounded-full"></div> Sunnah Rasulullah SAW
-                  </li>
-                </ul>
-              </div>
+                
+                <div class="flex flex-col sm:flex-row gap-4 justify-center relative z-10">
+                    <button onclick="window.location.href='#'" class="bg-white text-amber-700 px-8 py-4 rounded-full font-bold hover:bg-stone-100 transition shadow-lg w-full sm:w-auto">
+                        Pesan via WhatsApp
+                    </button>
+                    <button onclick="window.location.href='#'" class="bg-amber-700 text-white border border-amber-500 px-8 py-4 rounded-full font-bold hover:bg-amber-800 transition w-full sm:w-auto">
+                        Lihat Katalog
+                    </button>
+                </div>
             </div>
-
-            {/* Madu */}
-            <div className="bg-white p-8 rounded-3xl shadow-sm border border-stone-100 flex flex-col md:flex-row gap-6 items-center hover:shadow-xl transition">
-              <div className="w-32 h-32 bg-yellow-100 rounded-full flex items-center justify-center flex-shrink-0">
-                 {/* Icon for Honey */}
-                 <Droplet size={48} className="text-yellow-600" />
-              </div>
-              <div>
-                <h3 className="text-2xl font-bold text-stone-800 mb-2">Madu Murni</h3>
-                <p className="text-stone-600 text-sm mb-4">
-                  "Di dalamnya terdapat obat bagi manusia" (An-Nahl: 69).
-                </p>
-                <ul className="space-y-2">
-                  <li className="flex items-center gap-2 text-stone-700 text-sm">
-                    <div className="w-2 h-2 bg-yellow-500 rounded-full"></div> Sifat antibakteri & anti-inflamasi
-                  </li>
-                  <li className="flex items-center gap-2 text-stone-700 text-sm">
-                    <div className="w-2 h-2 bg-yellow-500 rounded-full"></div> Meningkatkan sistem imun
-                  </li>
-                  <li className="flex items-center gap-2 text-stone-700 text-sm">
-                    <div className="w-2 h-2 bg-yellow-500 rounded-full"></div> Pemanis alami yang sehat
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
         </div>
-      </section>
+    </section>
 
-      {/* Call to Action */}
-      <section id="contact" className="py-20">
-        <div className="container mx-auto px-4 md:px-8">
-          <div className="bg-amber-600 rounded-3xl p-10 md:p-16 text-center text-white shadow-2xl relative overflow-hidden">
-            <div className="absolute top-0 right-0 w-64 h-64 bg-white opacity-10 rounded-full -translate-y-1/2 translate-x-1/2"></div>
-            
-            <h2 className="text-3xl md:text-5xl font-bold mb-6 relative z-10">Rasakan Manfaat KAROMAIZ</h2>
-            <p className="text-amber-100 text-lg mb-10 max-w-2xl mx-auto relative z-10">
-              Puding sehat, halal, dan thayyib untuk keluarga Anda. Jadikan ini bagian dari ikhtiar sehat harian Anda.
-            </p>
-            
-            <div className="flex flex-col sm:flex-row gap-4 justify-center relative z-10">
-              <button className="bg-white text-amber-700 px-8 py-4 rounded-full font-bold hover:bg-stone-100 transition shadow-lg w-full sm:w-auto">
-                Pesan via WhatsApp
-              </button>
-              <button className="bg-amber-700 text-white border border-amber-500 px-8 py-4 rounded-full font-bold hover:bg-amber-800 transition w-full sm:w-auto">
-                Lihat Katalog
-              </button>
+    <!-- Footer -->
+    <footer class="bg-stone-900 text-stone-400 py-12 border-t border-stone-800">
+        <div class="container mx-auto px-4 md:px-8">
+            <div class="grid md:grid-cols-3 gap-8 mb-8">
+                <div>
+                    <div class="text-2xl font-bold text-white mb-4">KAROMAIZ</div>
+                    <p class="text-sm leading-relaxed">
+                        Pengembangan Pangan Fungsional Berbasis Puding Ekstrak Kurma dan Madu.
+                    </p>
+                </div>
+                <div>
+                    <h4 class="text-white font-bold mb-4">Tautan</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#home" class="hover:text-amber-500 transition">Beranda</a></li>
+                        <li><a href="#about" class="hover:text-amber-500 transition">Tentang Kami</a></li>
+                        <li><a href="#dalil" class="hover:text-amber-500 transition">Edukasi</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white font-bold mb-4">Kontak</h4>
+                    <p class="text-sm mb-2">Email: info@karomaiz.id</p>
+                    <p class="text-sm">Indonesia</p>
+                </div>
             </div>
-          </div>
+            <div class="border-t border-stone-800 pt-8 text-center text-sm">
+                <p>&copy; <span id="year"></span> KAROMAIZ. Halalan Tayyiban.</p>
+            </div>
         </div>
-      </section>
+    </footer>
 
-      {/* Footer */}
-      <footer className="bg-stone-900 text-stone-400 py-12 border-t border-stone-800">
-        <div className="container mx-auto px-4 md:px-8">
-          <div className="grid md:grid-cols-3 gap-8 mb-8">
-            <div>
-              <div className="text-2xl font-bold text-white mb-4">KAROMAIZ</div>
-              <p className="text-sm leading-relaxed">
-                Pengembangan Pangan Fungsional Berbasis Puding Ekstrak Kurma dan Madu.
-              </p>
-            </div>
-            <div>
-              <h4 className="text-white font-bold mb-4">Tautan</h4>
-              <ul className="space-y-2 text-sm">
-                <li><a href="#home" className="hover:text-amber-500 transition">Beranda</a></li>
-                <li><a href="#about" className="hover:text-amber-500 transition">Tentang Kami</a></li>
-                <li><a href="#dalil" className="hover:text-amber-500 transition">Edukasi</a></li>
-              </ul>
-            </div>
-            <div>
-              <h4 className="text-white font-bold mb-4">Kontak</h4>
-              <p className="text-sm mb-2">Email: info@karomaiz.id</p>
-              <p className="text-sm">Indonesia</p>
-            </div>
-          </div>
-          <div className="border-t border-stone-800 pt-8 text-center text-sm">
-            <p>&copy; {new Date().getFullYear()} KAROMAIZ. Halalan Tayyiban.</p>
-          </div>
-        </div>
-      </footer>
-    </div>
-  );
-};
+    <!-- Scripts -->
+    <script>
+        // Initialize Lucide Icons
+        lucide.createIcons();
 
-export default App;
+        // Mobile Menu Logic
+        const menuBtn = document.getElementById('menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const menuIcon = document.getElementById('menu-icon');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+        let isMenuOpen = false;
+
+        menuBtn.addEventListener('click', () => {
+            isMenuOpen = !isMenuOpen;
+            if (isMenuOpen) {
+                mobileMenu.classList.remove('hidden');
+                menuIcon.setAttribute('data-lucide', 'x');
+            } else {
+                mobileMenu.classList.add('hidden');
+                menuIcon.setAttribute('data-lucide', 'menu');
+            }
+            lucide.createIcons(); // Re-render icons after change
+        });
+
+        // Close mobile menu when a link is clicked
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                isMenuOpen = false;
+                mobileMenu.classList.add('hidden');
+                menuIcon.setAttribute('data-lucide', 'menu');
+                lucide.createIcons();
+            });
+        });
+
+        // Set Year dynamically
+        document.getElementById('year').textContent = new Date().getFullYear();
+    </script>
+</body>
+</html>
