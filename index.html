@@ -72,9 +72,10 @@
     <!-- Navigation -->
     <nav class="fixed w-full z-50 bg-white/90 backdrop-blur-md shadow-sm border-b border-amber-100">
         <div class="container mx-auto px-4 md:px-8 py-4 flex justify-between items-center">
-            <div class="flex items-center gap-2">
-                <div class="w-10 h-10 bg-amber-600 rounded-full flex items-center justify-center text-white font-bold text-xl">
-                    K
+            <div class="flex items-center gap-3">
+                <!-- Logo Image (1:1 Aspect Ratio) -->
+                <div class="w-12 h-12 rounded-full overflow-hidden border-2 border-amber-100 flex-shrink-0">
+                    <img src="Logo.png" alt="Logo KAROMAIZ" class="w-full h-full object-cover" onerror="this.onerror=null; this.parentNode.innerHTML='<div class=\'w-full h-full bg-amber-600 flex items-center justify-center text-white font-bold\'>K</div>'">
                 </div>
                 <span class="text-2xl font-bold text-amber-900 tracking-tight">KAROMAIZ</span>
             </div>
@@ -144,8 +145,8 @@
             <div class="grid md:grid-cols-2 gap-12 items-center">
                 <div class="relative">
                     <div class="aspect-square rounded-3xl bg-amber-100 overflow-hidden relative shadow-2xl">
-                        <!-- Placeholder for Product Image -->
-                        <img src="https://images.unsplash.com/photo-1598514962262-23b03043831b?q=80&w=2070&auto=format&fit=crop" alt="Puding Kurma Madu" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/600x600?text=Puding+Kurma'">
+                        <!-- Product Image: Puding_Kurma.png (1:1 Aspect Ratio via aspect-square class) -->
+                        <img src="Puding_Kurma.png" alt="Puding Kurma Madu" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/600x600?text=Puding+Kurma'">
                         <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent flex items-end p-8">
                             <div class="text-white">
                                 <h3 class="text-2xl font-bold">KAROMAIZ</h3>
@@ -337,8 +338,9 @@
                 </p>
                 
                 <div class="flex flex-col sm:flex-row gap-4 justify-center relative z-10">
-                    <button onclick="window.location.href='#'" class="bg-white text-amber-700 px-8 py-4 rounded-full font-bold hover:bg-stone-100 transition shadow-lg w-full sm:w-auto">
-                        Pesan via WhatsApp
+                    <!-- WhatsApp Button Updated -->
+                    <button onclick="window.open('https://Wa.me/6281331965094', '_blank')" class="bg-white text-amber-700 px-8 py-4 rounded-full font-bold hover:bg-stone-100 transition shadow-lg w-full sm:w-auto flex items-center justify-center gap-2">
+                        <i data-lucide="message-circle" class="w-5 h-5"></i> Pesan via WhatsApp
                     </button>
                     <button onclick="window.location.href='#'" class="bg-amber-700 text-white border border-amber-500 px-8 py-4 rounded-full font-bold hover:bg-amber-800 transition w-full sm:w-auto">
                         Lihat Katalog
